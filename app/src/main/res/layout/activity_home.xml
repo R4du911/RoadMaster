@@ -25,18 +25,153 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/MenuContainer"
         android:layout_width="match_parent"
-        android:layout_height="570dp"
-        android:layout_marginTop="69dp"
+        android:layout_height="630dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/white_design_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HomeTitle"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/HomeTitle">
 
-    </FrameLayout>
+        <RelativeLayout
+            android:id="@+id/StartQuizContainer"
+            android:layout_width="353dp"
+            android:layout_height="130dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="62dp"
+            android:background="#D9D9D9">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/HistoryContainer"
+            android:layout_width="165dp"
+            android:layout_height="130dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="232dp"
+            android:background="#D9D9D9">
+
+            <ImageButton
+                android:id="@+id/historyHomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/history_logo" />
+
+            <TextView
+                android:id="@+id/HistoryText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:fontFamily="@font/inter"
+                android:text="Istoric"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/InfosContainer"
+            android:layout_width="165dp"
+            android:layout_height="130dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="205dp"
+            android:layout_marginTop="232dp"
+            android:background="#D9D9D9">
+
+            <ImageButton
+                android:id="@+id/infosHomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/info_logo" />
+
+            <TextView
+                android:id="@+id/InfosText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:fontFamily="@font/inter"
+                android:text="Informatii"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ChangePasswordContainer"
+            android:layout_width="165dp"
+            android:layout_height="130dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="403dp"
+            android:background="#D9D9D9">
+
+            <ImageButton
+                android:id="@+id/changePasswordHomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/change_password_logo" />
+
+            <TextView
+                android:id="@+id/ChangePasswordText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:fontFamily="@font/inter"
+                android:text="Schimba parola"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/LogoutContainer"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="205dp"
+            android:layout_marginTop="403dp"
+            android:background="#D9D9D9">
+
+            <ImageButton
+                android:id="@+id/logoutHomeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/logout_logo" />
+
+            <TextView
+                android:id="@+id/LogoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:fontFamily="@font/inter"
+                android:text="Delogare"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
