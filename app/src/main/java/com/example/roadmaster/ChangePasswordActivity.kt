@@ -8,6 +8,12 @@ import android.widget.EditText
 import android.widget.ImageButton
 
 class ChangePasswordActivity : AppCompatActivity() {
+
+    private var editTextOldPassword: EditText? = null
+    private var editTextNewPassword: EditText? = null
+    private var editTextRepeatNewPassword: EditText? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
@@ -17,20 +23,48 @@ class ChangePasswordActivity : AppCompatActivity() {
             startActivity(Intent(this, HomeActivity::class.java))
         }
 
+        editTextOldPassword = findViewById(R.id.oldPasswordInput)
+        editTextNewPassword = findViewById(R.id.newPasswordInput)
+        editTextRepeatNewPassword = findViewById(R.id.repeatNewPasswordInput)
+
         val saveNewPasswordButton: Button = findViewById(R.id.saveButton)
         saveNewPasswordButton.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+            val areAllFieldsValid = checkAllFields()
+
+            if(areAllFieldsValid){
+                val oldPasswordInput: String = editTextOldPassword?.text.toString()
+                val newPasswordInput: String = editTextNewPassword?.text.toString()
+                val repeatNewPasswordInput: String = editTextRepeatNewPassword?.text.toString()
+
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
+        }
+    }
+
+    private fun checkAllFields() : Boolean {
+        var allFieldsAreValid = true
+
+        if(editTextOldPassword!!.length() == 0){
+            editTextOldPassword!!.error = "Acest camp este obligatoriu"
+            allFieldsAreValid = false
         }
 
+        if(editTextNewPassword!!.length() == 0){
+            editTextNewPassword!!.error = "Acest camp este obligatoriu"
+            allFieldsAreValid = false
+        }
 
-        val editTextOldPassword: EditText = findViewById(R.id.oldPasswordInput)
-        val oldPasswordInput: String = editTextOldPassword.text.toString()
+        if(editTextRepeatNewPassword!!.length() == 0){
+            editTextRepeatNewPassword!!.error = "Acest camp este obligatoriu"
+            allFieldsAreValid = false
+        }
 
-        val editTextNewPassword: EditText = findViewById(R.id.newPasswordInput)
-        val newPasswordInput: String = editTextNewPassword.text.toString()
+        if(editTextNewPassword!!.text != editTextRepeatNewPassword!!.text){
+            editTextNewPassword!!.error = "Parola introdusa nu este aceeasi"
+            editTextRepeatNewPassword!!.error = "Parola introdusa nu este acceasi"
+            allFieldsAreValid = false
+        }
 
-        val editTextRepeatNewPassword: EditText = findViewById(R.id.repeatNewPasswordInput)
-        val repeatNewPasswordInput: String = editTextRepeatNewPassword.text.toString()
-
+        return allFieldsAreValid
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.RelativeLayout
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +13,11 @@ class HomeActivity : AppCompatActivity() {
         val toChangePasswordButton: ImageButton = findViewById(R.id.changePasswordHomeButton)
         toChangePasswordButton.setOnClickListener{
             startActivity(Intent(this, ChangePasswordActivity::class.java))
+        }
+
+        val logoutButton: ImageButton = findViewById(R.id.logoutHomeButton)
+        logoutButton.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

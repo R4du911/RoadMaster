@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class LoginActivity : AppCompatActivity() {
+
+    private var editTextUser: EditText? = null
+    private var editTextPassword: EditText? = null;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -18,16 +22,36 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
+        editTextUser = findViewById(R.id.LoginUserInput)
+        editTextPassword = findViewById(R.id.LoginPasswordInput)
+
         val loginButton: Button = findViewById(R.id.LoginButton)
         loginButton.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+
+            val areAllFieldsValid = checkAllFields()
+
+            if(areAllFieldsValid){
+                val userInput: String = editTextUser?.text.toString()
+                val passwordInput: String = editTextPassword?.text.toString()
+
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
+        }
+    }
+
+    private fun checkAllFields() : Boolean {
+        var areAllFieldsValid = true
+
+        if(editTextUser!!.length() == 0){
+            editTextUser!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
         }
 
+        if(editTextPassword!!.length() == 0){
+            editTextPassword!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
+        }
 
-        val editTextUser: EditText = findViewById(R.id.LoginUserInput)
-        val userInput: String = editTextUser.text.toString()
-
-        val editTextPassword: EditText = findViewById(R.id.LoginPasswordInput)
-        val passwordInput: String = editTextPassword.text.toString()
+        return areAllFieldsValid
     }
 }

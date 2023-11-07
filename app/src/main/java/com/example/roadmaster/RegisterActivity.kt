@@ -8,6 +8,12 @@ import android.widget.EditText
 import android.widget.ImageButton
 
 class RegisterActivity : AppCompatActivity() {
+
+    private var editTextUser: EditText? = null;
+    private var editTextEmail: EditText? = null;
+    private var editTextPassword: EditText? = null;
+    private var editTextRepeatPassword: EditText? = null;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -17,22 +23,51 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+        editTextUser = findViewById(R.id.RegisterUserInput)
+        editTextEmail = findViewById(R.id.RegisterEmailInput)
+        editTextPassword = findViewById(R.id.RegisterPasswordInput)
+        editTextRepeatPassword = findViewById(R.id.RegisterRepeatPasswordInput)
+
         val registerButton: Button = findViewById(R.id.RegisterButton)
         registerButton.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+
+            val areAllFieldsValid = checkAllFields()
+
+            if(areAllFieldsValid){
+                val userInput: String = editTextUser?.text.toString()
+                val emailInput: String = editTextEmail?.text.toString()
+                val passwordInput: String = editTextPassword?.text.toString()
+                val repeatPasswordInput: String = editTextRepeatPassword?.text.toString()
+
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
+
+        }
+    }
+
+    private fun checkAllFields() : Boolean {
+        var areAllFieldsValid = true
+
+        if(editTextUser!!.length() == 0){
+            editTextUser!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
         }
 
+        if(editTextEmail!!.length() == 0){
+            editTextEmail!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
+        }
 
-        val editTextUser: EditText = findViewById(R.id.RegisterUserInput)
-        val userInput: String = editTextUser.text.toString()
+        if(editTextPassword!!.length() == 0){
+            editTextPassword!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
+        }
 
-        val editTextEmail: EditText = findViewById(R.id.RegisterEmailInput)
-        val emailInput: String = editTextEmail.text.toString()
+        if(editTextRepeatPassword!!.length() == 0){
+            editTextRepeatPassword!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
+        }
 
-        val editTextPassword: EditText = findViewById(R.id.RegisterPasswordInput)
-        val passwordInput: String = editTextPassword.text.toString()
-
-        val editTextRepeatPassword: EditText = findViewById(R.id.RegisterRepeatPasswordInput)
-        val repeatPasswordInput: String = editTextRepeatPassword.text.toString()
+        return areAllFieldsValid
     }
 }
