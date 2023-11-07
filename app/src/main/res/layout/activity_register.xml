@@ -8,7 +8,7 @@
     tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/registerRepeatPasswordInput"
+        android:id="@+id/RegisterRepeatPasswordInput"
         android:layout_width="330sp"
         android:layout_height="48sp"
         android:layout_marginStart="40dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerRepeatPasswordInput" />
+        app:layout_constraintTop_toBottomOf="@+id/RegisterRepeatPasswordInput" />
 
     <TextView
         android:id="@+id/RegisterTitle"
@@ -103,7 +103,7 @@
         android:paddingStart="15dp"
         android:textSize="18sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/registerRepeatPasswordInput"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterRepeatPasswordInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RegisterEmailInput"
