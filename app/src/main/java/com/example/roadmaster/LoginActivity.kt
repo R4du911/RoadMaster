@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 class LoginActivity : AppCompatActivity() {
 
     private var editTextUser: EditText? = null
-    private var editTextPassword: EditText? = null;
+    private var editTextPassword: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,16 +3,17 @@ package com.example.roadmaster
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 
 class RegisterActivity : AppCompatActivity() {
 
-    private var editTextUser: EditText? = null;
-    private var editTextEmail: EditText? = null;
-    private var editTextPassword: EditText? = null;
-    private var editTextRepeatPassword: EditText? = null;
+    private var editTextUser: EditText? = null
+    private var editTextEmail: EditText? = null
+    private var editTextPassword: EditText? = null
+    private var editTextRepeatPassword: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +59,25 @@ class RegisterActivity : AppCompatActivity() {
             areAllFieldsValid = false
         }
 
+        if(!Patterns.EMAIL_ADDRESS.matcher(editTextEmail!!.text.toString()).matches()){
+            editTextEmail!!.error = "Email-ul nu este valid"
+            areAllFieldsValid = false
+        }
+
         if(editTextPassword!!.length() == 0){
             editTextPassword!!.error = "Acest camp este obligatoriu"
             areAllFieldsValid = false
         }
 
+
         if(editTextRepeatPassword!!.length() == 0){
             editTextRepeatPassword!!.error = "Acest camp este obligatoriu"
+            areAllFieldsValid = false
+        }
+
+        if(editTextPassword!!.text.toString() != editTextRepeatPassword!!.text.toString()){
+            editTextPassword!!.error = "Parola introdusa nu este la fel"
+            editTextRepeatPassword!!.error = "Parola introdusa nu este la fel"
             areAllFieldsValid = false
         }
 

@@ -59,9 +59,14 @@ class ChangePasswordActivity : AppCompatActivity() {
             allFieldsAreValid = false
         }
 
-        if(editTextNewPassword!!.text != editTextRepeatNewPassword!!.text){
-            editTextNewPassword!!.error = "Parola introdusa nu este aceeasi"
-            editTextRepeatNewPassword!!.error = "Parola introdusa nu este acceasi"
+        if(editTextOldPassword!!.text.toString() == editTextNewPassword!!.text.toString()){
+            editTextNewPassword!!.error = "Parola noua nu poate fi aceeasi cu cea veche"
+            allFieldsAreValid = false
+        }
+
+        if(editTextNewPassword!!.text.toString() != editTextRepeatNewPassword!!.text.toString()){
+            editTextNewPassword!!.error = "Parola noua introdusa nu este la fel"
+            editTextRepeatNewPassword!!.error = "Parola noua introdusa nu este la fel"
             allFieldsAreValid = false
         }
 
