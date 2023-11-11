@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFDFD"
     android:rotationX="0"
-    tools:context=".LoginActivity">
+    tools:context=".activities.LoginActivity">
 
     <TextView
         android:id="@+id/LoginTitle"

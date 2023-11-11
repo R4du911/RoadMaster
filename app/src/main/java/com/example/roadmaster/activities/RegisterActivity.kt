@@ -1,4 +1,4 @@
-package com.example.roadmaster
+package com.example.roadmaster.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,19 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import com.example.roadmaster.R
+import com.example.roadmaster.model.User
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.post
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import kotlinx.serialization.json.Json
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -15,9 +28,18 @@ class RegisterActivity : AppCompatActivity() {
     private var editTextPassword: EditText? = null
     private var editTextRepeatPassword: EditText? = null
 
+    private val httpClient = HttpClient(Android) {
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(Json {
+                ignoreUnknownKeys = true
+            })
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
 
         val linkBackToLoginArrow: ImageButton = findViewById(R.id.BackToLoginButton)
         linkBackToLoginArrow.setOnClickListener{
@@ -32,17 +54,30 @@ class RegisterActivity : AppCompatActivity() {
         val registerButton: Button = findViewById(R.id.RegisterButton)
         registerButton.setOnClickListener {
 
-            val areAllFieldsValid = checkAllFields()
-
-            if(areAllFieldsValid){
+            if(checkAllFields()){
                 val userInput: String = editTextUser?.text.toString()
                 val emailInput: String = editTextEmail?.text.toString()
                 val passwordInput: String = editTextPassword?.text.toString()
-                val repeatPasswordInput: String = editTextRepeatPassword?.text.toString()
+
+                lifecycleScope.launch {
+                    registerPost(User(userInput, emailInput, passwordInput))
+                }
 
                 startActivity(Intent(this, HomeActivity::class.java))
             }
 
+        }
+    }
+
+    private suspend fun registerPost(user: User){
+        try {
+            val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/register") {
+                contentType(ContentType.Application.Json)
+                body = user
+            }
+            println("Response status: ${response.status}")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
