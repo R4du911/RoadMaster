@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import com.example.roadmaster.R
-import com.example.roadmaster.model.User
+import com.example.roadmaster.model.UserRegisterRequestDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
@@ -60,26 +60,29 @@ class RegisterActivity : AppCompatActivity() {
                 val passwordInput: String = editTextPassword?.text.toString()
 
                 lifecycleScope.launch {
-                    registerPost(User(userInput, emailInput, passwordInput))
+                    registerPost(UserRegisterRequestDTO(userInput, emailInput, passwordInput))
+
                 }
-
-                startActivity(Intent(this, HomeActivity::class.java))
             }
-
         }
     }
 
-    private suspend fun registerPost(user: User){
+
+    private suspend fun registerPost(user: UserRegisterRequestDTO){
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/register") {
                 contentType(ContentType.Application.Json)
                 body = user
             }
+
             println("Response status: ${response.status}")
+
+            this.startActivity(Intent(this, HomeActivity::class.java))
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+
 
     private fun checkAllFields() : Boolean {
         var areAllFieldsValid = true
