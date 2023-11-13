@@ -22,6 +22,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/LoginSubtitle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,4 +134,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/LoginInfo1"
         app:layout_constraintTop_toBottomOf="@+id/LoginButton" />
+
+    <TextView
+        android:id="@+id/errorTextView"
+        android:layout_width="0dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="186dp"
+        android:textColor="#FF0000"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/LoginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginPasswordInput" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,7 +61,6 @@ class RegisterActivity : AppCompatActivity() {
 
                 lifecycleScope.launch {
                     registerPost(UserRegisterRequestDTO(userInput, emailInput, passwordInput))
-
                 }
             }
         }
