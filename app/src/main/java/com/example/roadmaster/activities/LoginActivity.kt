@@ -10,23 +10,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
 import com.example.roadmaster.model.UserLoginRequestDTO
-import com.example.roadmaster.model.UserRegisterRequestDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.post
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.readText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import org.json.JSONObject
 
 
 class LoginActivity : AppCompatActivity() {
 
-    private var editTextUser: EditText? = null
+    private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
     private var errorTextView: TextView? = null
 
@@ -47,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        editTextUser = findViewById(R.id.LoginUserInput)
+        editTextEmail = findViewById(R.id.LoginEmailInput)
         editTextPassword = findViewById(R.id.LoginPasswordInput)
         errorTextView = findViewById(R.id.errorTextView)
 
@@ -57,11 +58,11 @@ class LoginActivity : AppCompatActivity() {
             val areAllFieldsValid = checkAllFields()
 
             if(areAllFieldsValid){
-                val userInput: String = editTextUser?.text.toString()
+                val emailInput: String = editTextEmail?.text.toString()
                 val passwordInput: String = editTextPassword?.text.toString()
 
                 lifecycleScope.launch {
-                    loginPost(UserLoginRequestDTO(userInput, userInput, passwordInput))
+                    loginPost(UserLoginRequestDTO(emailInput, emailInput, passwordInput))
                 }
             }
         }
@@ -73,8 +74,16 @@ class LoginActivity : AppCompatActivity() {
                 contentType(ContentType.Application.Json)
                 body = user
             }
+
             if (response.status.isSuccess()) {
-                startActivity(Intent(this, HomeActivity::class.java))
+
+                val json = JSONObject(response.readText())
+                val userData = json.getJSONObject("data")
+
+                val homeActivity = Intent(this, HomeActivity::class.java)
+                homeActivity.putExtra("user", userData.toString())
+
+                startActivity(homeActivity)
             } else if (response.status.value == 401) {
                 showErrorMessage("Incorrect credentials. Please try again.")
             } else {
@@ -84,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     //TODO:Can t to show message incorrect credentials
     private fun showErrorMessage(message: String) {
         errorTextView?.text = message
@@ -93,8 +103,8 @@ class LoginActivity : AppCompatActivity() {
     private fun checkAllFields() : Boolean {
         var areAllFieldsValid = true
 
-        if(editTextUser!!.length() == 0){
-            editTextUser!!.error = "Acest camp este obligatoriu"
+        if(editTextEmail!!.length() == 0){
+            editTextEmail!!.error = "Acest camp este obligatoriu"
             areAllFieldsValid = false
         }
 

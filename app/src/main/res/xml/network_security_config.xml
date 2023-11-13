@@ -3,5 +3,7 @@
     <base-config cleartextTrafficPermitted="true" />
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">http://10.0.2.2:8000/api/register</domain>
+        <domain includeSubdomains="true">http://10.0.2.2:8000/api/login</domain>
+        <domain includeSubdomains="true">http://10.0.2.2:8000/api/reset-password</domain>
     </domain-config>
 </network-security-config>

@@ -1,25 +1,29 @@
 package com.example.roadmaster.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
 import com.example.roadmaster.model.UserRegisterRequestDTO
+import com.example.roadmaster.model.UserResponseDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.post
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.readText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import kotlinx.serialization.json.Json
-import androidx.lifecycle.lifecycleScope
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import org.json.JSONObject
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -27,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
     private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
     private var editTextRepeatPassword: EditText? = null
+    private val json = Json
 
     private val httpClient = HttpClient(Android) {
         install(JsonFeature) {
@@ -74,9 +79,18 @@ class RegisterActivity : AppCompatActivity() {
                 body = user
             }
 
-            println("Response status: ${response.status}")
+            if (response.status.isSuccess()) {
 
-            this.startActivity(Intent(this, HomeActivity::class.java))
+                val json = JSONObject(response.readText())
+                val userData = json.getJSONObject("data")
+
+                val homeActivity = Intent(this, HomeActivity::class.java)
+                homeActivity.putExtra("user", userData.toString())
+
+                startActivity(homeActivity)
+            } else {
+                println("Register failed. Status: ${response.status}")
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

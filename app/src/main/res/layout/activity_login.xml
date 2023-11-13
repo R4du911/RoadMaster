@@ -36,31 +36,31 @@
         android:text="Login pentru a continua"
         android:textColor="#8E8A8A"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/LoginUserInput"
+        app:layout_constraintBottom_toTopOf="@+id/LoginEmailInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginTitle" />
 
     <EditText
-        android:id="@+id/LoginUserInput"
+        android:id="@+id/LoginEmailInput"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="330dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="89dp"
         android:layout_marginEnd="41dp"
+        android:background="@drawable/input_shape"
         android:ems="10"
-        android:paddingStart="15dp"
         android:fontFamily="@font/inter"
-        android:hint="Utilizator"
+        android:hint="Email"
         android:inputType="text"
+        android:paddingStart="15dp"
         android:textColor="#000000"
         android:textColorHint="#8E8A8A"
         app:layout_constraintBottom_toTopOf="@+id/LoginPasswordInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginSubtitle"
-        android:background="@drawable/input_shape"/>
+        app:layout_constraintTop_toBottomOf="@+id/LoginSubtitle" />
 
     <EditText
         android:id="@+id/LoginPasswordInput"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginUserInput" />
+        app:layout_constraintTop_toBottomOf="@+id/LoginEmailInput" />
 
     <Button
         android:id="@+id/LoginButton"
