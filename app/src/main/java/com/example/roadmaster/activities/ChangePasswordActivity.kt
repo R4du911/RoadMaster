@@ -3,15 +3,12 @@ package com.example.roadmaster.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
-import com.example.roadmaster.model.UserLoginRequestDTO
 import com.example.roadmaster.model.UserResetPasswordRequest
-import com.example.roadmaster.model.UserResponseDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature

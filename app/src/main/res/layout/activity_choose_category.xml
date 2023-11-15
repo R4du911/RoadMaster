@@ -5,83 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F18C42"
-    tools:context=".activities.HomeActivity">
+    tools:context=".activities.ChooseCategoryActivity">
 
     <TextView
-        android:id="@+id/HomeTitle"
+        android:id="@+id/chooseCategoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="99dp"
         android:fontFamily="@font/inter"
-        android:text="Acasa"
+        android:text="Start quiz"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="32sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/chooseCategoryUndertitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/CategoryContainer"
         android:layout_width="match_parent"
-        android:layout_height="630dp"
+        android:layout_height="570dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/white_design_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/HomeTitle">
-
-        <RelativeLayout
-            android:id="@+id/StartQuizContainer"
-            android:layout_width="240dp"
-            android:layout_height="130dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="62dp"
-            android:background="#D9D9D9">
-
-            <ImageButton
-                android:id="@+id/startQuizButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/start_quiz_logo" />
-
-            <TextView
-                android:id="@+id/StartQuizText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="5dp"
-                android:clickable="false"
-                android:fontFamily="@font/inter"
-                android:text="Start quiz"
-                android:textColor="#000000"
-                android:textSize="15sp" />
-        </RelativeLayout>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <RelativeLayout
             android:id="@+id/CategoryAContainer"
-            android:layout_width="165dp"
-            android:layout_height="130dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="232dp"
+            android:layout_marginTop="100dp"
             android:background="#D9D9D9">
 
             <ImageButton
                 android:id="@+id/categoryAButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/history_logo" />
+                app:srcCompat="@drawable/category_a_logo" />
 
             <TextView
                 android:id="@+id/categoryAText"
@@ -92,7 +63,7 @@
                 android:layout_marginBottom="5dp"
                 android:clickable="false"
                 android:fontFamily="@font/inter"
-                android:text="Istoric"
+                android:text="Categoria A"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
@@ -100,12 +71,12 @@
 
         <RelativeLayout
             android:id="@+id/CategoryBContainer"
-            android:layout_width="165dp"
-            android:layout_height="130dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="205dp"
-            android:layout_marginTop="232dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="100dp"
             android:background="#D9D9D9">
 
             <ImageButton
@@ -113,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/info_logo" />
+                app:srcCompat="@drawable/category_b_logo" />
 
             <TextView
                 android:id="@+id/categoryBText"
@@ -124,19 +95,19 @@
                 android:layout_marginBottom="5dp"
                 android:clickable="false"
                 android:fontFamily="@font/inter"
-                android:text="Informatii"
+                android:text="Categoria B"
                 android:textColor="#000000"
                 android:textSize="15sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/CategoryCContainer"
-            android:layout_width="165dp"
-            android:layout_height="130dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="403dp"
+            android:layout_marginTop="325dp"
             android:background="#D9D9D9">
 
             <ImageButton
@@ -144,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/change_password_logo" />
+                app:srcCompat="@drawable/category_c_logo" />
 
             <TextView
                 android:id="@+id/categoryCText"
@@ -155,7 +126,7 @@
                 android:layout_marginBottom="5dp"
                 android:clickable="false"
                 android:fontFamily="@font/inter"
-                android:text="Schimba parola"
+                android:text="Categoria C"
                 android:textColor="#000000"
                 android:textSize="15sp" />
 
@@ -163,12 +134,12 @@
 
         <RelativeLayout
             android:id="@+id/CategoryDContainer"
-            android:layout_width="165dp"
-            android:layout_height="130dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="205dp"
-            android:layout_marginTop="403dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="325dp"
             android:background="#D9D9D9">
 
             <ImageButton
@@ -176,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/logout_logo" />
+                app:srcCompat="@drawable/category_d_logo" />
 
             <TextView
                 android:id="@+id/categoryDText"
@@ -187,27 +158,39 @@
                 android:layout_marginBottom="5dp"
                 android:clickable="false"
                 android:fontFamily="@font/inter"
-                android:text="Delogare"
+                android:text="Categoria D"
                 android:textColor="#000000"
                 android:textSize="15sp" />
         </RelativeLayout>
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/helloUserText"
+    <ImageButton
+        android:id="@+id/backToHomeFromCategoryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="91dp"
-        android:layout_marginEnd="242dp"
-        android:layout_marginBottom="37dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/CategoryContainer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="345dp"
+        android:layout_marginBottom="161dp"
+        android:background="#F18C42"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterUserInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
-        app:layout_constraintStart_toEndOf="@+id/HomeTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:srcCompat="@drawable/arrow" />
 
+    <TextView
+        android:id="@+id/chooseCategoryUndertitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="147dp"
+        android:layout_marginEnd="147dp"
+        android:layout_marginBottom="45dp"
+        android:text="Choose a category"
+        android:textColor="#494747"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/CategoryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseCategoryTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

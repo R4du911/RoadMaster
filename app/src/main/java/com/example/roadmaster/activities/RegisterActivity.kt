@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
 import com.example.roadmaster.model.UserRegisterRequestDTO
-import com.example.roadmaster.model.UserResponseDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
@@ -31,7 +30,6 @@ class RegisterActivity : AppCompatActivity() {
     private var editTextEmail: EditText? = null
     private var editTextPassword: EditText? = null
     private var editTextRepeatPassword: EditText? = null
-    private val json = Json
 
     private val httpClient = HttpClient(Android) {
         install(JsonFeature) {

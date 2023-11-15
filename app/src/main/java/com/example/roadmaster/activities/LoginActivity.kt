@@ -85,7 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
                 startActivity(homeActivity)
             } else if (response.status.value == 401) {
-                showErrorMessage("Incorrect credentials. Please try again.")
+                println("Incorrect credentials. Please try again.")
             } else {
                 println("Login failed. Status: ${response.status}")
             }
@@ -94,11 +94,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    //TODO:Can t to show message incorrect credentials
+
     private fun showErrorMessage(message: String) {
         errorTextView?.text = message
         errorTextView?.visibility = View.VISIBLE
     }
+
 
     private fun checkAllFields() : Boolean {
         var areAllFieldsValid = true

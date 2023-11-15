@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RoadMaster</string>
+    <string name="greeting_text">Salut, %s</string>
 </resources>
