@@ -34,7 +34,15 @@ class HomeActivity : AppCompatActivity() {
             startActivity(chooseCategoryActivity)
         }
 
-        val toChangePasswordButton: ImageButton = findViewById(R.id.categoryCButton)
+        val toHistoryButton: ImageButton = findViewById(R.id.historyButton)
+        toHistoryButton.setOnClickListener{
+            val historyActivity = Intent(this, HistoryActivity::class.java)
+            historyActivity.putExtra("user", userData.toString())
+
+            startActivity(historyActivity)
+        }
+
+        val toChangePasswordButton: ImageButton = findViewById(R.id.changePasswordButton)
         toChangePasswordButton.setOnClickListener{
             val changePasswordActivity = Intent(this, ChangePasswordActivity::class.java)
             changePasswordActivity.putExtra("user", userData.toString())
@@ -42,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(changePasswordActivity)
         }
 
-        val logoutButton: ImageButton = findViewById(R.id.categoryDButton)
+        val logoutButton: ImageButton = findViewById(R.id.logoutButton)
         logoutButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }

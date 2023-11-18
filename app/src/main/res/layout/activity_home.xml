@@ -67,7 +67,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/CategoryAContainer"
+            android:id="@+id/HistoryContainer"
             android:layout_width="165dp"
             android:layout_height="130dp"
             android:layout_alignParentTop="true"
@@ -77,14 +77,14 @@
             android:background="#D9D9D9">
 
             <ImageButton
-                android:id="@+id/categoryAButton"
+                android:id="@+id/historyButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/history_logo" />
 
             <TextView
-                android:id="@+id/categoryAText"
+                android:id="@+id/historyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -99,7 +99,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/CategoryBContainer"
+            android:id="@+id/InfoContainer"
             android:layout_width="165dp"
             android:layout_height="130dp"
             android:layout_alignParentTop="true"
@@ -109,14 +109,14 @@
             android:background="#D9D9D9">
 
             <ImageButton
-                android:id="@+id/categoryBButton"
+                android:id="@+id/infoButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/info_logo" />
 
             <TextView
-                android:id="@+id/categoryBText"
+                android:id="@+id/infoText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -130,7 +130,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/CategoryCContainer"
+            android:id="@+id/ChangePasswordContainer"
             android:layout_width="165dp"
             android:layout_height="130dp"
             android:layout_alignParentTop="true"
@@ -140,14 +140,14 @@
             android:background="#D9D9D9">
 
             <ImageButton
-                android:id="@+id/categoryCButton"
+                android:id="@+id/changePasswordButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/change_password_logo" />
 
             <TextView
-                android:id="@+id/categoryCText"
+                android:id="@+id/changePasswordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -162,7 +162,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/CategoryDContainer"
+            android:id="@+id/LogoutContainer"
             android:layout_width="165dp"
             android:layout_height="130dp"
             android:layout_alignParentTop="true"
@@ -172,14 +172,14 @@
             android:background="#D9D9D9">
 
             <ImageButton
-                android:id="@+id/categoryDButton"
+                android:id="@+id/logoutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/logout_logo" />
 
             <TextView
-                android:id="@+id/categoryDText"
+                android:id="@+id/logoutText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
