@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RoadMaster</string>
     <string name="greeting_text">Salut, %s</string>
+    <string name="number_histories">Quiz-uri totale: %d</string>
 </resources>
