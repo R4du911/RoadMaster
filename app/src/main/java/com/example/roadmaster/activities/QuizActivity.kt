@@ -1,9 +1,7 @@
 package com.example.roadmaster.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.roadmaster.R
@@ -26,7 +24,7 @@ class QuizActivity : AppCompatActivity() {
         val timer = object: CountDownTimer(20000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
 
-                time_text.text = millisUntilFinished.toString();
+                time_text.text = ((millisUntilFinished / 1000) / 60).toString() + " : " + (millisUntilFinished / 1000).toString()
             }
 
             override fun onFinish() {
