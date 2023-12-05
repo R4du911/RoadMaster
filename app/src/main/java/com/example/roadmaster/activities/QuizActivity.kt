@@ -2,12 +2,35 @@ package com.example.roadmaster.activities
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.request.get
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.readText
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.http.isSuccess
+import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 class QuizActivity : AppCompatActivity() {
+
+    private val httpClient = HttpClient(Android) {
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(Json {
+                ignoreUnknownKeys = true
+            })
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
@@ -32,5 +55,33 @@ class QuizActivity : AppCompatActivity() {
             }
         }
         timer.start()
+
+        val next_question: Button = findViewById(R.id.next_question)
+
+        next_question.setOnClickListener{
+            lifecycleScope.launch { getQuestion() }
+        }
+    }
+
+    private suspend fun getQuestion()
+    {
+        try {
+            val response: HttpResponse = httpClient.get("http://10.0.2.2:8000/api/question")
+            {
+                contentType(ContentType.Application.Json)
+            }
+
+            if ( response.status.isSuccess()){
+                val json = JSONObject(response.readText())
+                val userData = json.getJSONObject("data")
+
+                val question: TextView = findViewById(R.id.question)
+
+                question.text = userData.getString("text")
+            }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
