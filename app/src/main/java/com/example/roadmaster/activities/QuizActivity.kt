@@ -7,11 +7,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
+import com.example.roadmaster.model.GetQuestionRequestDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
+import io.ktor.client.request.post
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 import io.ktor.http.ContentType
@@ -66,9 +68,10 @@ class QuizActivity : AppCompatActivity() {
     private suspend fun getQuestion()
     {
         try {
-            val response: HttpResponse = httpClient.get("http://10.0.2.2:8000/api/question")
+            val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/question")
             {
                 contentType(ContentType.Application.Json)
+                body= GetQuestionRequestDTO("A2")
             }
 
             if ( response.status.isSuccess()){
