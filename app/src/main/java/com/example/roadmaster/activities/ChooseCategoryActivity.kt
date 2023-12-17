@@ -22,8 +22,8 @@ class ChooseCategoryActivity : AppCompatActivity() {
             startActivity(homeActivity)
         }
 
-        val catergory_a: ImageButton = findViewById(R.id.categoryAButton)
-        catergory_a.setOnClickListener{
+        val categoryA: ImageButton = findViewById(R.id.categoryAButton)
+        categoryA.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)
             quizActivity.putExtra("user", userData.toString())
 

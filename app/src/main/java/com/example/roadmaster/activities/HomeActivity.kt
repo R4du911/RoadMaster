@@ -34,6 +34,14 @@ class HomeActivity : AppCompatActivity() {
             startActivity(chooseCategoryActivity)
         }
 
+        val toChooseInfoButton: ImageButton = findViewById(R.id.infoButton)
+        toChooseInfoButton.setOnClickListener{
+            val chooseInfoActivity = Intent(this, ChooseInfoActivity::class.java)
+            chooseInfoActivity.putExtra("user",userData.toString())
+
+            startActivity(chooseInfoActivity)
+        }
+
         val toHistoryButton: ImageButton = findViewById(R.id.historyButton)
         toHistoryButton.setOnClickListener{
             val historyActivity = Intent(this, HistoryActivity::class.java)

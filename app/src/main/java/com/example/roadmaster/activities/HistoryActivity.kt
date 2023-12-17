@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat.getFont
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
 import com.example.roadmaster.model.HistoryRequestDTO

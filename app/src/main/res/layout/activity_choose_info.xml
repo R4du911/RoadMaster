@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F18C42"
+    tools:context=".activities.ChooseInfoActivity">
+
+    <RelativeLayout
+        android:id="@+id/CategoryContainer"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:background="@drawable/white_design_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/otherCountriesContainer"
+            android:layout_width="250dp"
+            android:layout_height="180dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="70dp"
+            android:background="#D9D9D9">
+
+            <ImageButton
+                android:id="@+id/otherCountriesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/world_logo" />
+
+            <TextView
+                android:id="@+id/otherCountriesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:fontFamily="@font/inter"
+                android:text="Informatii alte tari"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/practicContainer"
+            android:layout_width="250dp"
+            android:layout_height="180dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="310dp"
+            android:background="#D9D9D9">
+
+            <ImageButton
+                android:id="@+id/practicButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/car_wheel_logo" />
+
+            <TextView
+                android:id="@+id/practicText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="5dp"
+                android:clickable="false"
+                android:fontFamily="@font/inter"
+                android:text="Tips examen practic"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/chooseInfoCategoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="65dp"
+        android:fontFamily="@font/inter"
+        android:text="Informatii"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/CategoryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backToHomeFromInfoCategoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="345dp"
+        android:layout_marginBottom="96dp"
+        android:background="#F18C42"
+        app:layout_constraintBottom_toTopOf="@+id/CategoryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+</androidx.constraintlayout.widget.ConstraintLayout>
