@@ -19,7 +19,20 @@
             android:id="@+id/drivingTipsScrollableContainer"
             android:layout_width="match_parent"
             android:layout_height="600dp"
-            android:background="@drawable/white_design_shape" />
+            android:background="@drawable/white_design_shape">
+
+            <TextView
+                android:id="@+id/tipsInfoText"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/inter"
+                android:text=""
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </ScrollView>
 
     <TextView
