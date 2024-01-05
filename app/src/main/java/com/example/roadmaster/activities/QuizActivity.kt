@@ -3,6 +3,7 @@ package com.example.roadmaster.activities
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +22,7 @@ import io.ktor.http.isSuccess
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
+import java.util.Vector
 
 class QuizActivity : AppCompatActivity() {
 
@@ -78,6 +80,18 @@ class QuizActivity : AppCompatActivity() {
                 val question: TextView = findViewById(R.id.question)
                 question.text = userData.getString("text")
 
+                val answers = userData.getJSONArray("answers");
+                val checkBoxes :  Array<CheckBox> = arrayOf(
+                    findViewById(R.id.answer1),
+                    findViewById(R.id.answer2),
+                    findViewById(R.id.answer3),
+                    findViewById(R.id.answer4))
+
+                for (i in 0 until answers.length())
+                {
+                    val answer = answers.getJSONArray(i)
+                    checkBoxes[i].text = answer.getString(0);
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
