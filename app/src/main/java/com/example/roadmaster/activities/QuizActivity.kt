@@ -36,53 +36,50 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        val myIntent = intent
-        val userData = myIntent.getStringExtra("user")
-        val userDataJSON = userData?.let { JSONObject(it) }
+        val timeText: TextView = findViewById(R.id.timer)
 
-        val user_text_view: TextView = findViewById(R.id.user_name)
-
-        user_text_view.text = userDataJSON?.getString("username")
-
-        val time_text: TextView = findViewById(R.id.timer)
-        val timer = object: CountDownTimer(20000, 1000) {
+        val timer = object : CountDownTimer(20000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-
-                time_text.text = ((millisUntilFinished / 1000) / 60).toString() + " : " + (millisUntilFinished / 1000).toString()
+                timeText.text =
+                    buildString {
+                        append("Timp ramas ")
+                        append(((millisUntilFinished / 1000) / 60))
+                        append(" : ")
+                        append((millisUntilFinished / 1000))
+                    }
             }
 
             override fun onFinish() {
-                time_text.text = "Findish"
+                timeText.text = "Findish"
             }
         }
         timer.start()
 
-        val next_question: Button = findViewById(R.id.next_question)
+        val nextQuestion: Button = findViewById(R.id.next_question)
 
-        next_question.setOnClickListener{
+        nextQuestion.setOnClickListener {
             lifecycleScope.launch { getQuestion() }
         }
+        nextQuestion.performClick();
     }
 
-    private suspend fun getQuestion()
-    {
+    private suspend fun getQuestion() {
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/question")
             {
                 contentType(ContentType.Application.Json)
-                body= GetQuestionRequestDTO("A2")
+                body = GetQuestionRequestDTO("A2")
             }
 
-            if ( response.status.isSuccess()){
+            if (response.status.isSuccess()) {
                 val json = JSONObject(response.readText())
                 val userData = json.getJSONObject("data")
 
                 val question: TextView = findViewById(R.id.question)
-
                 question.text = userData.getString("text")
+
             }
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
