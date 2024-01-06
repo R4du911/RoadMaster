@@ -1,5 +1,6 @@
 package com.example.roadmaster.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
 import com.example.roadmaster.model.GetQuestionRequestDTO
+import com.example.roadmaster.model.Question
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.features.json.JsonFeature
@@ -24,7 +26,7 @@ import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 
-private const val maxQuestions: Int = 26;
+private const val maxQuestions: Int = 26
 
 class QuizActivity : AppCompatActivity() {
 
@@ -36,8 +38,8 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
-    private var questionCounter: Int = 0;
-    private var questionIds: MutableList<Int> = mutableListOf();
+    private var questionCounter: Int = 0
+    private var answeredQuestions: MutableList<Question> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,7 @@ class QuizActivity : AppCompatActivity() {
                     }
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onFinish() {
                 timeText.text = "Findish"
             }
@@ -64,38 +67,38 @@ class QuizActivity : AppCompatActivity() {
 
         questionCounter = 0
         val nextQuestion: Button = findViewById(R.id.next_question)
-        val category = intent.getStringExtra("category");
+        val category = intent.getStringExtra("category")
 
         nextQuestion.setOnClickListener {
             lifecycleScope.launch { getQuestion(category) }
-            if (questionCounter == 0) {
-                questionCounter++
-                val q_counter: TextView = findViewById(R.id.question_counter)
-                q_counter.text = buildString {
-                    append(questionCounter)
-                    append("/")
-                    append(maxQuestions)
+            when (questionCounter) {
+                0 -> {
+                    questionCounter++
+                    val q_counter: TextView = findViewById(R.id.question_counter)
+                    q_counter.text = buildString {
+                        append(questionCounter)
+                        append("/")
+                        append(maxQuestions)
+                    }
                 }
-            }
-            else if (questionCounter == maxQuestions)
-            {
-                val q_counter: TextView = findViewById(R.id.question_counter)
-                q_counter.text = buildString {
-                    append("DOne")
+                maxQuestions -> {
+                    val q_counter: TextView = findViewById(R.id.question_counter)
+                    q_counter.text = buildString {
+                        append("DOne")
+                    }
                 }
-            }
-            else
-            {
-                questionCounter++
-                val q_counter: TextView = findViewById(R.id.question_counter)
-                q_counter.text = buildString {
-                    append(questionCounter)
-                    append("/")
-                    append(maxQuestions)
+                else -> {
+                    questionCounter++
+                    val q_counter: TextView = findViewById(R.id.question_counter)
+                    q_counter.text = buildString {
+                        append(questionCounter)
+                        append("/")
+                        append(maxQuestions)
+                    }
                 }
             }
         }
-        nextQuestion.performClick();
+        nextQuestion.performClick()
     }
 
     private suspend fun getQuestion(category: String?) {
@@ -107,22 +110,25 @@ class QuizActivity : AppCompatActivity() {
                     body = GetQuestionRequestDTO(category)
                 }
 
-                if  (response.status.isSuccess()) {
+                if (response.status.isSuccess()) {
 
                     val json = JSONObject(response.readText())
                     val questionData = json.getJSONObject("data")
 
                     val questionId = questionData.getInt("id")
-                    if (questionId in questionIds) {
+                    if (answeredQuestions.filter { it.id == questionId }.size == 1) {
                         continue
                     }
 
-                    questionIds.add(questionId)
+                    val answeredQuestion = Question()
+                    answeredQuestion.id = questionId
+                    answeredQuestion.category = category.orEmpty()
 
                     val question: TextView = findViewById(R.id.question)
                     question.text = questionData.getString("text")
+                    answeredQuestion.text = questionData.getString("text")
 
-                    val answers = questionData.getJSONArray("answers");
+                    val answers = questionData.getJSONArray("answers")
                     val checkBoxes: Array<CheckBox> = arrayOf(
                         findViewById(R.id.answer1),
                         findViewById(R.id.answer2),
@@ -132,8 +138,18 @@ class QuizActivity : AppCompatActivity() {
 
                     for (i in 0 until answers.length()) {
                         val answer = answers.getJSONArray(i)
-                        checkBoxes[i].text = answer.getString(0);
+                        checkBoxes[i].text = answer.getString(0)
+                        answeredQuestion.answers.add(
+                            Pair(
+                                answer.getString(0),
+                                answer.getBoolean(1)
+                            )
+                        )
                     }
+
+                    answeredQuestions.add(
+                        answeredQuestion
+                    )
 
                     break
                 }
