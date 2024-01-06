@@ -39,6 +39,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private var questionCounter: Int = 0
+    private var wrongQuestionsCounter : Int = 0
     private var answeredQuestions: MutableList<Question> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +67,7 @@ class QuizActivity : AppCompatActivity() {
         timer.start()
 
         questionCounter = 0
+        wrongQuestionsCounter = 0
         val nextQuestion: Button = findViewById(R.id.next_question)
         val category = intent.getStringExtra("category")
 
@@ -81,13 +83,25 @@ class QuizActivity : AppCompatActivity() {
                         append(maxQuestions)
                     }
                 }
+
                 maxQuestions -> {
+                    registerResponse(questionCounter - 1)
                     val q_counter: TextView = findViewById(R.id.question_counter)
                     q_counter.text = buildString {
-                        append("DOne")
+                        append("Done")
                     }
                 }
+
                 else -> {
+                    registerResponse(questionCounter - 1)
+                    if (wrongQuestionsCounter == 6) {
+
+                        val q_counter: TextView = findViewById(R.id.question_counter)
+                        q_counter.text = buildString {
+                            append("Done")
+                        }
+
+                    }
                     questionCounter++
                     val q_counter: TextView = findViewById(R.id.question_counter)
                     q_counter.text = buildString {
@@ -157,5 +171,30 @@ class QuizActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun registerResponse(questionNumber : Int)
+    {
+        val answer1 : CheckBox = findViewById(R.id.answer1)
+        val answer2 : CheckBox = findViewById(R.id.answer2)
+        val answer3 : CheckBox = findViewById(R.id.answer3)
+        val answer4 : CheckBox = findViewById(R.id.answer4)
+
+        answeredQuestions[questionNumber].chosenAnswers.also {
+            it.add(answer1.isChecked)
+            it.add(answer2.isChecked)
+            it.add(answer3.isChecked)
+            it.add(answer4.isChecked)
+        }
+
+        if(answeredQuestions[questionNumber].answers.map { it.second } != answeredQuestions)
+        {
+            wrongQuestionsCounter++
+        }
+
+        answer1.isChecked = false
+        answer2.isChecked = false
+        answer3.isChecked = false
+        answer4.isChecked = false
     }
 }
