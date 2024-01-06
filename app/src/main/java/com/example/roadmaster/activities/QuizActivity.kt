@@ -58,7 +58,6 @@ class QuizActivity : AppCompatActivity() {
         timer.start()
 
         val nextQuestion: Button = findViewById(R.id.next_question)
-        val myIntent = intent;
         val category = intent.getStringExtra("category");
 
         nextQuestion.setOnClickListener {

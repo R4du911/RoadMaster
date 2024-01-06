@@ -26,7 +26,31 @@ class ChooseCategoryActivity : AppCompatActivity() {
         categoryA.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)
             quizActivity.putExtra("user", userData.toString())
-            quizActivity.putExtra("category", "A2");
+            quizActivity.putExtra("category", "A");
+            startActivity(quizActivity)
+        }
+
+        val categoryB: ImageButton = findViewById(R.id.categoryBButton)
+        categoryB.setOnClickListener{
+            val quizActivity = Intent(this, QuizActivity::class.java)
+            quizActivity.putExtra("user", userData.toString())
+            quizActivity.putExtra("category", "B");
+            startActivity(quizActivity)
+        }
+
+        val categoryC: ImageButton = findViewById(R.id.categoryCButton)
+        categoryC.setOnClickListener{
+            val quizActivity = Intent(this, QuizActivity::class.java)
+            quizActivity.putExtra("user", userData.toString())
+            quizActivity.putExtra("category", "C");
+            startActivity(quizActivity)
+        }
+
+        val categoryD: ImageButton = findViewById(R.id.categoryDButton)
+        categoryD.setOnClickListener{
+            val quizActivity = Intent(this, QuizActivity::class.java)
+            quizActivity.putExtra("user", userData.toString())
+            quizActivity.putExtra("category", "D");
             startActivity(quizActivity)
         }
     }
