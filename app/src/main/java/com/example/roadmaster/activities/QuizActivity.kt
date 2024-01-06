@@ -58,19 +58,21 @@ class QuizActivity : AppCompatActivity() {
         timer.start()
 
         val nextQuestion: Button = findViewById(R.id.next_question)
+        val myIntent = intent;
+        val category = intent.getStringExtra("category");
 
         nextQuestion.setOnClickListener {
-            lifecycleScope.launch { getQuestion() }
+            lifecycleScope.launch { getQuestion(category) }
         }
         nextQuestion.performClick();
     }
 
-    private suspend fun getQuestion() {
+    private suspend fun getQuestion(category : String?) {
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/question")
             {
                 contentType(ContentType.Application.Json)
-                body = GetQuestionRequestDTO("A2")
+                body = GetQuestionRequestDTO(category)
             }
 
             if (response.status.isSuccess()) {

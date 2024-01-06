@@ -26,7 +26,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
         categoryA.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)
             quizActivity.putExtra("user", userData.toString())
-
+            quizActivity.putExtra("category", "A2");
             startActivity(quizActivity)
         }
     }
