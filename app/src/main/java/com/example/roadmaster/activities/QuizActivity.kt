@@ -1,6 +1,7 @@
 package com.example.roadmaster.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -39,7 +40,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private var questionCounter: Int = 0
-    private var wrongQuestionsCounter : Int = 0
+    private var wrongQuestionsCounter: Int = 0
     private var answeredQuestions: MutableList<Question> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +62,12 @@ class QuizActivity : AppCompatActivity() {
 
             @SuppressLint("SetTextI18n")
             override fun onFinish() {
-                timeText.text = "Findish"
+                val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
+                resultActivity.putExtra("user", intent.getStringExtra("user").toString())
+                resultActivity.putExtra("answered_questions", questionCounter)
+                resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
+                resultActivity.putExtra("question_data", answeredQuestions.toTypedArray())
+                startActivity(resultActivity)
             }
         }
         timer.start()
@@ -72,9 +78,9 @@ class QuizActivity : AppCompatActivity() {
         val category = intent.getStringExtra("category")
 
         nextQuestion.setOnClickListener {
-            lifecycleScope.launch { getQuestion(category) }
             when (questionCounter) {
                 0 -> {
+                    lifecycleScope.launch { getQuestion(category) }
                     questionCounter++
                     val q_counter: TextView = findViewById(R.id.question_counter)
                     q_counter.text = buildString {
@@ -86,28 +92,33 @@ class QuizActivity : AppCompatActivity() {
 
                 maxQuestions -> {
                     registerResponse(questionCounter - 1)
-                    val q_counter: TextView = findViewById(R.id.question_counter)
-                    q_counter.text = buildString {
-                        append("Done")
-                    }
+
+                    val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
+                    resultActivity.putExtra("user", intent.getStringExtra("user").toString())
+                    resultActivity.putExtra("answered_questions", questionCounter)
+                    resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
+                    resultActivity.putExtra("question_data", answeredQuestions.toTypedArray())
+                    startActivity(resultActivity)
                 }
 
                 else -> {
                     registerResponse(questionCounter - 1)
+                    lifecycleScope.launch { getQuestion(category) }
                     if (wrongQuestionsCounter == 6) {
-
+                        val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
+                        resultActivity.putExtra("user", intent.getStringExtra("user").toString())
+                        resultActivity.putExtra("answered_questions", questionCounter)
+                        resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
+                        resultActivity.putExtra("question_data", answeredQuestions as ArrayList<Question>)
+                        startActivity(resultActivity)
+                    } else {
+                        questionCounter++
                         val q_counter: TextView = findViewById(R.id.question_counter)
                         q_counter.text = buildString {
-                            append("Done")
+                            append(questionCounter)
+                            append("/")
+                            append(maxQuestions)
                         }
-
-                    }
-                    questionCounter++
-                    val q_counter: TextView = findViewById(R.id.question_counter)
-                    q_counter.text = buildString {
-                        append(questionCounter)
-                        append("/")
-                        append(maxQuestions)
                     }
                 }
             }
@@ -173,12 +184,11 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerResponse(questionNumber : Int)
-    {
-        val answer1 : CheckBox = findViewById(R.id.answer1)
-        val answer2 : CheckBox = findViewById(R.id.answer2)
-        val answer3 : CheckBox = findViewById(R.id.answer3)
-        val answer4 : CheckBox = findViewById(R.id.answer4)
+    private fun registerResponse(questionNumber: Int) {
+        val answer1: CheckBox = findViewById(R.id.answer1)
+        val answer2: CheckBox = findViewById(R.id.answer2)
+        val answer3: CheckBox = findViewById(R.id.answer3)
+        val answer4: CheckBox = findViewById(R.id.answer4)
 
         answeredQuestions[questionNumber].chosenAnswers.also {
             it.add(answer1.isChecked)
@@ -187,8 +197,8 @@ class QuizActivity : AppCompatActivity() {
             it.add(answer4.isChecked)
         }
 
-        if(answeredQuestions[questionNumber].answers.map { it.second } != answeredQuestions)
-        {
+        if (answeredQuestions[questionNumber].answers.map { it.second } !=
+            answeredQuestions[questionNumber].chosenAnswers) {
             wrongQuestionsCounter++
         }
 
