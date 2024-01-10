@@ -27,7 +27,7 @@ import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 
-private const val maxQuestions: Int = 26
+const val maxQuestions: Int = 26
 
 class QuizActivity : AppCompatActivity() {
 
@@ -62,21 +62,17 @@ class QuizActivity : AppCompatActivity() {
 
             @SuppressLint("SetTextI18n")
             override fun onFinish() {
-                val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
-                resultActivity.putExtra("user", intent.getStringExtra("user").toString())
-                resultActivity.putExtra("answered_questions", questionCounter)
-                resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
-                resultActivity.putExtra("question_data", answeredQuestions.toTypedArray())
-                startActivity(resultActivity)
+                startActivity(getResultIntent())
             }
         }
         timer.start()
 
         questionCounter = 0
         wrongQuestionsCounter = 0
-        val nextQuestion: Button = findViewById(R.id.next_question)
+
         val category = intent.getStringExtra("category")
 
+        val nextQuestion: Button = findViewById(R.id.next_question)
         nextQuestion.setOnClickListener {
             when (questionCounter) {
                 0 -> {
@@ -92,25 +88,14 @@ class QuizActivity : AppCompatActivity() {
 
                 maxQuestions -> {
                     registerResponse(questionCounter - 1)
-
-                    val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
-                    resultActivity.putExtra("user", intent.getStringExtra("user").toString())
-                    resultActivity.putExtra("answered_questions", questionCounter)
-                    resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
-                    resultActivity.putExtra("question_data", answeredQuestions.toTypedArray())
-                    startActivity(resultActivity)
+                    startActivity(getResultIntent())
                 }
 
                 else -> {
                     registerResponse(questionCounter - 1)
                     lifecycleScope.launch { getQuestion(category) }
                     if (wrongQuestionsCounter == 6) {
-                        val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
-                        resultActivity.putExtra("user", intent.getStringExtra("user").toString())
-                        resultActivity.putExtra("answered_questions", questionCounter)
-                        resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
-                        resultActivity.putExtra("question_data", answeredQuestions as ArrayList<Question>)
-                        startActivity(resultActivity)
+                        startActivity(getResultIntent())
                     } else {
                         questionCounter++
                         val q_counter: TextView = findViewById(R.id.question_counter)
@@ -124,6 +109,17 @@ class QuizActivity : AppCompatActivity() {
             }
         }
         nextQuestion.performClick()
+    }
+
+    private fun getResultIntent(): Intent {
+        val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
+        resultActivity.putExtra("user", intent.getStringExtra("user").toString())
+        resultActivity.putExtra("category", intent.getStringExtra("category"))
+        resultActivity.putExtra("answered_questions", questionCounter)
+        resultActivity.putExtra("wrong_questions", wrongQuestionsCounter)
+        resultActivity.putExtra("question_data", answeredQuestions.toTypedArray())
+
+        return resultActivity
     }
 
     private suspend fun getQuestion(category: String?) {
