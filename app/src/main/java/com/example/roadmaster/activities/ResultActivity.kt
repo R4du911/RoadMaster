@@ -1,12 +1,15 @@
 package com.example.roadmaster.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.roadmaster.R
+import com.example.roadmaster.model.Question
 import com.example.roadmaster.model.ResultDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -33,6 +36,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
@@ -56,19 +60,30 @@ class ResultActivity : AppCompatActivity() {
 
         val userId = intent.getStringExtra("user")?.let { JSONObject(it) }?.getString("id")
 
-        findViewById<Button>(R.id.back_to_menu).setOnClickListener {
-            lifecycleScope.launch {
-                sendResult(
-                    ResultDTO(
-                        userId.orEmpty(),
-                        category,
-                        nrCorrect,
-                        nrWrong,
-                        percentageCorrect,
-                        resultString
-                    )
+        lifecycleScope.launch {
+            sendResult(
+                ResultDTO(
+                    userId.orEmpty(),
+                    category,
+                    nrCorrect,
+                    nrWrong,
+                    percentageCorrect,
+                    resultString
                 )
+            )
+
+        findViewById<Button>(R.id.back_to_menu).setOnClickListener {
+                val homeActivity = Intent(this@ResultActivity, HomeActivity::class.java)
+                homeActivity.putExtra("user", intent.getStringExtra("user"))
+                startActivity(homeActivity)
             }
+        }
+
+        findViewById<Button>(R.id.show_my_ans).setOnClickListener{
+            val reviewActivity = Intent(this@ResultActivity, ReviewQuizActivity::class.java)
+            reviewActivity.putExtra("user", intent.getStringExtra("user"))
+            reviewActivity.putExtra("question_data", intent.getParcelableArrayExtra("question_data", Question::class.java))
+            startActivity(reviewActivity)
         }
     }
 
@@ -79,13 +94,7 @@ class ResultActivity : AppCompatActivity() {
                 contentType(ContentType.Application.Json)
                 body = result
             }
-            if (response.status.isSuccess()) {
-
-                val homeActivity = Intent(this, HomeActivity::class.java)
-                homeActivity.putExtra("user", intent.getStringExtra("user"))
-                startActivity(homeActivity)
-
-            } else {
+            if (!response.status.isSuccess()) {
                 throw Exception()
             }
         } catch (e: Exception) {
