@@ -26,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
         greetingTextView?.text = greetingText
 
 
+        //button to choose category section for starting quiz
         val toChooseCategoryButton: ImageButton = findViewById(R.id.startQuizButton)
         toChooseCategoryButton.setOnClickListener{
             val chooseCategoryActivity = Intent(this, ChooseCategoryActivity::class.java)
@@ -34,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(chooseCategoryActivity)
         }
 
+        //button to choose info section
         val toChooseInfoButton: ImageButton = findViewById(R.id.infoButton)
         toChooseInfoButton.setOnClickListener{
             val chooseInfoActivity = Intent(this, ChooseInfoActivity::class.java)
@@ -42,6 +44,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(chooseInfoActivity)
         }
 
+        //button to history section
         val toHistoryButton: ImageButton = findViewById(R.id.historyButton)
         toHistoryButton.setOnClickListener{
             val historyActivity = Intent(this, HistoryActivity::class.java)
@@ -50,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(historyActivity)
         }
 
+        //button to change password section
         val toChangePasswordButton: ImageButton = findViewById(R.id.changePasswordButton)
         toChangePasswordButton.setOnClickListener{
             val changePasswordActivity = Intent(this, ChangePasswordActivity::class.java)
@@ -58,6 +62,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(changePasswordActivity)
         }
 
+        //logout button
         val logoutButton: ImageButton = findViewById(R.id.logoutButton)
         logoutButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))

@@ -14,6 +14,7 @@ class ChooseInfoActivity : AppCompatActivity() {
         val myIntent = intent
         val userData = myIntent.getStringExtra("user")
 
+        //button to go back home
         val toHomeButton: ImageButton = findViewById(R.id.backToHomeFromInfoCategoryButton)
         toHomeButton.setOnClickListener{
             val homeActivity = Intent(this, HomeActivity::class.java)
@@ -22,6 +23,7 @@ class ChooseInfoActivity : AppCompatActivity() {
             startActivity(homeActivity)
         }
 
+        //button to go to info about countries
         val toOtherCountriesInfoButton: ImageButton = findViewById(R.id.otherCountriesButton)
         toOtherCountriesInfoButton.setOnClickListener{
             val otherCountriesInfoActivity = Intent(this, OtherCountriesInfoActivity::class.java)
@@ -30,6 +32,7 @@ class ChooseInfoActivity : AppCompatActivity() {
             startActivity(otherCountriesInfoActivity)
         }
 
+        //button to go to tips for the practical exam
         val toDrivingTipsInfoButton: ImageButton = findViewById(R.id.practicButton)
         toDrivingTipsInfoButton.setOnClickListener{
             val drivingTipsInfoActivity = Intent(this, DrivingTipsInfoActivity::class.java)

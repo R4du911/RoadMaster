@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
         editTextPassword = findViewById(R.id.LoginPasswordInput)
         errorTextView = findViewById(R.id.errorTextView)
 
+        //login button
         val loginButton: Button = findViewById(R.id.LoginButton)
         loginButton.setOnClickListener {
 
@@ -68,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //login request function
     private suspend fun loginPost(user: UserLoginRequestDTO){
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/login") {
@@ -100,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
         errorTextView?.visibility = View.VISIBLE
     }
 
-
+    //validations
     private fun checkAllFields() : Boolean {
         var areAllFieldsValid = true
 

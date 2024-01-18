@@ -55,9 +55,12 @@ class OtherCountriesInfoActivity : AppCompatActivity() {
 
             val textViewInfo: TextView = findViewById(R.id.countryInfoText)
 
+            //spinner for displaying countries
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val selectedCountry = adapter.getItem(position)
+
+                    //dynamically showing the info for the selected country
                     selectedCountry?.let { country ->
                         lifecycleScope.launch {
                             val infoList : List<String>? = countryInfoPost(country)
@@ -79,7 +82,7 @@ class OtherCountriesInfoActivity : AppCompatActivity() {
             }
         }
 
-
+        //button for going back to choose info section
         val toChooseInfoActivityButton: ImageButton = findViewById(R.id.backToChooseInfoCategoryFromOtherCountries)
         toChooseInfoActivityButton.setOnClickListener{
             val chooseInfoActivity = Intent(this, ChooseInfoActivity::class.java)
@@ -89,6 +92,7 @@ class OtherCountriesInfoActivity : AppCompatActivity() {
         }
     }
 
+    //request for retrieving the countries from DB
     private suspend fun countriesGet(): List<Country>? {
         try {
             val response: HttpResponse = httpClient.get("http://10.0.2.2:8000/api/countries") {
@@ -112,6 +116,7 @@ class OtherCountriesInfoActivity : AppCompatActivity() {
         return null
     }
 
+    //request for retrieving the info for a given country
     private suspend fun countryInfoPost(country: Country) : List<String>? {
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/country-info") {

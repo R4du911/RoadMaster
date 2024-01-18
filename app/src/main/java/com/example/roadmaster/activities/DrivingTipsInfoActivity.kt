@@ -54,6 +54,7 @@ class DrivingTipsInfoActivity : AppCompatActivity() {
             textViewInfo.text = stringBuilder.toString()
         }
 
+        //button to go back to choose info menu
         val toChooseInfoActivityButton: ImageButton = findViewById(R.id.backToChooseInfoCategoryFromDrivingTips)
         toChooseInfoActivityButton.setOnClickListener{
             val chooseInfoActivity = Intent(this, ChooseInfoActivity::class.java)
@@ -63,6 +64,7 @@ class DrivingTipsInfoActivity : AppCompatActivity() {
         }
     }
 
+    //request function for retrieving tips from DB
     private suspend fun tipsGet(): List<String>? {
         try {
             val response: HttpResponse = httpClient.get("http://10.0.2.2:8000/api/tips") {

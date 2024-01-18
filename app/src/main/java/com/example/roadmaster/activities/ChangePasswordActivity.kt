@@ -44,7 +44,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         val userData = myIntent.getStringExtra("user")
         val userDataJSON = userData?.let { JSONObject(it) }
 
-
+        //button to go back to home
         val linkBackToHomeArrow: ImageButton = findViewById(R.id.backToHomeButton)
         linkBackToHomeArrow.setOnClickListener{
             val homeActivity = Intent(this, HomeActivity::class.java)
@@ -58,6 +58,8 @@ class ChangePasswordActivity : AppCompatActivity() {
         editTextRepeatNewPassword = findViewById(R.id.repeatNewPasswordInput)
 
         val saveNewPasswordButton: Button = findViewById(R.id.saveButton)
+
+        //button to save new password
         saveNewPasswordButton.setOnClickListener {
             val areAllFieldsValid = checkAllFields()
 
@@ -67,7 +69,7 @@ class ChangePasswordActivity : AppCompatActivity() {
                 val repeatNewPasswordInput: String = editTextRepeatNewPassword?.text.toString()
 
                 lifecycleScope.launch {
-                    changePasswordPost(UserResetPasswordRequest(
+                    changePasswordPost(userData, UserResetPasswordRequest(
                         userDataJSON?.getString("email"),
                         oldPasswordInput,
                         newPasswordInput,
@@ -78,14 +80,18 @@ class ChangePasswordActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun changePasswordPost(userResetRequest: UserResetPasswordRequest){
+    //change password request function
+    private suspend fun changePasswordPost(userData: String?, userResetRequest: UserResetPasswordRequest){
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/reset-password") {
                 contentType(ContentType.Application.Json)
                 body = userResetRequest
             }
             if (response.status.isSuccess()) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                val homeActivity = Intent(this, HomeActivity::class.java)
+                homeActivity.putExtra("user", userData.toString())
+
+                startActivity(homeActivity)
             } else {
                 println("Login failed. Status: ${response.status}")
             }
@@ -95,6 +101,7 @@ class ChangePasswordActivity : AppCompatActivity() {
     }
 
 
+    //validation
     private fun checkAllFields() : Boolean {
         var allFieldsAreValid = true
 

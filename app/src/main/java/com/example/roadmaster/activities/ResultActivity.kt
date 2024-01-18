@@ -43,6 +43,7 @@ class ResultActivity : AppCompatActivity() {
 
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
+        //dynamically displaying the UI for the result
         val category = intent.getStringExtra("category").orEmpty()
         val answeredQuestions = intent.getIntExtra("answered_questions", 0)
         val nrWrong = intent.getIntExtra("wrong_questions", 0)
@@ -72,6 +73,7 @@ class ResultActivity : AppCompatActivity() {
                 )
             )
 
+            //button for going back to home
         findViewById<Button>(R.id.back_to_menu).setOnClickListener {
                 val homeActivity = Intent(this@ResultActivity, HomeActivity::class.java)
                 homeActivity.putExtra("user", intent.getStringExtra("user"))
@@ -79,6 +81,7 @@ class ResultActivity : AppCompatActivity() {
             }
         }
 
+        //button for going to the review section
         findViewById<Button>(R.id.show_my_ans).setOnClickListener{
             val reviewActivity = Intent(this@ResultActivity, ReviewQuizActivity::class.java)
             reviewActivity.putExtra("user", intent.getStringExtra("user"))
@@ -87,6 +90,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    //button to send result for saving in the DB
     private suspend fun sendResult(result: ResultDTO) {
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/result")

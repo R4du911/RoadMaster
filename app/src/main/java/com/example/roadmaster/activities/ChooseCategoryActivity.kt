@@ -14,6 +14,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
         val myIntent = intent
         val userData = myIntent.getStringExtra("user")
 
+        //button to go back home
         val toHomeButton: ImageButton = findViewById(R.id.backToHomeFromCategoryButton)
         toHomeButton.setOnClickListener{
             val homeActivity = Intent(this, HomeActivity::class.java)
@@ -22,6 +23,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
             startActivity(homeActivity)
         }
 
+        //button for category A
         val categoryA: ImageButton = findViewById(R.id.categoryAButton)
         categoryA.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)
@@ -30,6 +32,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
             startActivity(quizActivity)
         }
 
+        //button for category B
         val categoryB: ImageButton = findViewById(R.id.categoryBButton)
         categoryB.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)
@@ -38,6 +41,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
             startActivity(quizActivity)
         }
 
+        //button for category C
         val categoryC: ImageButton = findViewById(R.id.categoryCButton)
         categoryC.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)
@@ -46,6 +50,7 @@ class ChooseCategoryActivity : AppCompatActivity() {
             startActivity(quizActivity)
         }
 
+        //button for category D
         val categoryD: ImageButton = findViewById(R.id.categoryDButton)
         categoryD.setOnClickListener{
             val quizActivity = Intent(this, QuizActivity::class.java)

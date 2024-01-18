@@ -44,6 +44,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
 
+        //button for goinf back to login section
         val linkBackToLoginArrow: ImageButton = findViewById(R.id.BackToLoginButton)
         linkBackToLoginArrow.setOnClickListener{
             startActivity(Intent(this, LoginActivity::class.java))
@@ -54,6 +55,7 @@ class RegisterActivity : AppCompatActivity() {
         editTextPassword = findViewById(R.id.RegisterPasswordInput)
         editTextRepeatPassword = findViewById(R.id.RegisterRepeatPasswordInput)
 
+        //register button
         val registerButton: Button = findViewById(R.id.RegisterButton)
         registerButton.setOnClickListener {
 
@@ -70,6 +72,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
+    //register request for saving the user in the DB
     private suspend fun registerPost(user: UserRegisterRequestDTO){
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/register") {
@@ -95,6 +98,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
+    //validations
     private fun checkAllFields() : Boolean {
         var areAllFieldsValid = true
 

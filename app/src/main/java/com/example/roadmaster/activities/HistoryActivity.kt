@@ -58,6 +58,7 @@ class HistoryActivity : AppCompatActivity() {
             historyPost(HistoryRequestDTO(id))
         }
 
+        //button to go back to home
         val linkBackToHomeArrow: ImageButton = findViewById(R.id.backToHomeButtonFromHistory)
         linkBackToHomeArrow.setOnClickListener{
             val homeActivity = Intent(this, HomeActivity::class.java)
@@ -68,6 +69,7 @@ class HistoryActivity : AppCompatActivity() {
     }
 
 
+    //request function for retrieving history from DB + dynamically building the UI
     private suspend fun historyPost(user: HistoryRequestDTO){
         try {
             val response: HttpResponse = httpClient.post("http://10.0.2.2:8000/api/history") {
@@ -82,6 +84,7 @@ class HistoryActivity : AppCompatActivity() {
 
                 val historiesList = Json.decodeFromString<List<HistoryResponseDTO>>(historiesString)
 
+                //display number of quizzes written
                 val numberOfHistories = historiesList.size
                 val numberHistoriesText = getString(R.string.number_histories, numberOfHistories)
                 var spannableString = SpannableString(numberHistoriesText)
@@ -92,6 +95,7 @@ class HistoryActivity : AppCompatActivity() {
                 numberHistoriesView = findViewById(R.id.numberQuizesText)
                 numberHistoriesView?.text = spannableString
 
+                //display all the written quizzes dynamically
                 val parentRelativeLayout = findViewById<RelativeLayout>(R.id.historiesContainer)
                 for(index in 0 until numberOfHistories){
                     val childRelativeLayout = RelativeLayout(this)

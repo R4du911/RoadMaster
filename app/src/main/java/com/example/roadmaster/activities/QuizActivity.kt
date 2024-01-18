@@ -49,6 +49,7 @@ class QuizActivity : AppCompatActivity() {
 
         val timeText: TextView = findViewById(R.id.timer)
 
+        //timer
         val timer = object : CountDownTimer(1_800_000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 timeText.text =
@@ -72,6 +73,7 @@ class QuizActivity : AppCompatActivity() {
 
         val category = intent.getStringExtra("category")
 
+        //logic for displaying the next question
         val nextQuestion: Button = findViewById(R.id.next_question)
         nextQuestion.setOnClickListener {
             when (questionCounter) {
@@ -111,6 +113,7 @@ class QuizActivity : AppCompatActivity() {
         nextQuestion.performClick()
     }
 
+    //function for going to the result section
     private fun getResultIntent(): Intent {
         val resultActivity = Intent(this@QuizActivity, ResultActivity::class.java)
         resultActivity.putExtra("user", intent.getStringExtra("user").toString())
@@ -122,6 +125,7 @@ class QuizActivity : AppCompatActivity() {
         return resultActivity
     }
 
+    //request function for retrieving a question
     private suspend fun getQuestion(category: String?) {
         try {
             while (true) {
@@ -180,6 +184,7 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
+    //logic for saving the response after each question
     private fun registerResponse(questionNumber: Int) {
         val answer1: CheckBox = findViewById(R.id.answer1)
         val answer2: CheckBox = findViewById(R.id.answer2)

@@ -39,6 +39,7 @@ ReviewQuizActivity : AppCompatActivity() {
         reviewQuestion(index)
         index++
 
+        //logic for displaying the review section for each question answered in the quiz
         findViewById<Button>(R.id.review_next_question).setOnClickListener{
             findViewById<ImageView>(R.id.imageViewAnswer1).setImageResource(0)
             findViewById<ImageView>(R.id.imageViewAnswer2).setImageResource(0)
@@ -65,6 +66,7 @@ ReviewQuizActivity : AppCompatActivity() {
 
     }
 
+    //function to dynamically display the UI of the review for each question
     private fun reviewQuestion(index : Int)
     {
         findViewById<TextView>(R.id.review_question_label).text = questions[index].text
